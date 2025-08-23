@@ -8,13 +8,14 @@ import { store } from "./redux/store.ts";
 
 import { ThemeProvider } from "./providers/theme-provider.tsx";
 import router from "./routes/index.tsx";
+import { Toaster } from "sonner";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
-        
+        <Toaster/>
       </ThemeProvider>
     </ReduxProvider>
   </React.StrictMode>
