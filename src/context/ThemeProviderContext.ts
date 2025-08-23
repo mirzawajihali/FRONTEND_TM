@@ -1,6 +1,7 @@
+import type { Theme } from "@/providers/theme-provider"
 import { createContext } from "react"
 
-type Theme = "dark" | "light" | "system"
+
 
 type ThemeProviderState = {
   theme: Theme

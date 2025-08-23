@@ -3,6 +3,7 @@ import AdminLayout from "@/layout/AdminLayout";
 import About from "@/pages/About";
 import Analytics from "@/pages/Analytics";
 import Home from "@/pages/Home";
+import Register from "@/pages/Register";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
             {
                 path : "about",
                 Component : About
+            },
+            {
+                path : "register",
+                Component : Register
+
             }
         ]
     },
