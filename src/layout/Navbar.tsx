@@ -4,15 +4,20 @@ import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { ModeToggle } from "./ModeToggler";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { Link } from "react-router";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logout] = useLogoutMutation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleLogout =()=>{
+    logout(undefined);
+  }
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -85,7 +90,12 @@ const Navbar = () => {
             </Button>
 
             {/* Cart Button */}
-            <Button
+           
+
+            {/* User / Login / Logout */}
+            {data?.data?.email ? (
+              <>
+               <Button
               variant="ghost"
               size="icon"
               className="hidden sm:flex hover:bg-accent relative"
@@ -99,10 +109,6 @@ const Navbar = () => {
               </span>
               <span className="sr-only">Shopping cart</span>
             </Button>
-
-            {/* User / Login / Logout */}
-            {data?.data?.email ? (
-              <>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -111,13 +117,13 @@ const Navbar = () => {
                   <User className="h-5 w-5" />
                   <span className="sr-only">User account</span>
                 </Button>
-                <Button variant="ghost" size="sm" className="hidden sm:flex">
+                <Button onClick={handleLogout} variant="ghost" size="sm" className="hidden sm:flex">
                   Logout
                 </Button>
               </>
             ) : (
-              <Button variant="ghost" size="sm" className="hidden sm:flex">
-                Login
+              <Button  variant="ghost" size="sm" className="hidden sm:flex">
+                <Link to="/login">Login</Link>
               </Button>
             )}
 
@@ -167,7 +173,11 @@ const Navbar = () => {
                 <span className="sr-only">Search</span>
               </Button>
 
-              <Button variant="ghost" size="icon" className="hover:bg-accent relative">
+             
+
+              {data?.data?.email ? (
+                <>
+                 <Button variant="ghost" size="icon" className="hover:bg-accent relative">
                 <ShoppingCart className="h-5 w-5" />
                 <span
                   className="absolute -top-1 -right-1 h-4 w-4 rounded-full text-xs flex items-center justify-center text-white font-medium"
@@ -177,14 +187,11 @@ const Navbar = () => {
                 </span>
                 <span className="sr-only">Shopping cart</span>
               </Button>
-
-              {data?.data?.email ? (
-                <>
                   <Button variant="ghost" size="icon" className="hover:bg-accent">
                     <User className="h-5 w-5" />
                     <span className="sr-only">User account</span>
                   </Button>
-                  <Button variant="ghost" size="sm" className="hover:bg-accent">
+                  <Button onClick={handleLogout} variant="ghost" size="sm" className="hover:bg-accent">
                     Logout
                   </Button>
                 </>

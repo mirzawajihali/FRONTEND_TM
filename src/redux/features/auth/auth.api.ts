@@ -18,6 +18,15 @@ export const authApi = baseApi.injectEndpoints({
         data: userInfo,
       }),
     }),
+
+    logout : builder.mutation({
+        query: () => ({
+        url: "/logout",
+        method: "POST",
+       
+      }),
+    })
+      ,
     sendOtp: builder.mutation<IResponse<null>, ISendOtp>({
       query: (userInfo) => ({
         url: "/otp/send",
@@ -48,6 +57,7 @@ export const {
   useLoginMutation,
   useSendOtpMutation,
   useVerifyOtpMutation,
-  useUserInfoQuery
+  useUserInfoQuery,
+  useLogoutMutation
 
 } = authApi;
