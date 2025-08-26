@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { Link } from "react-router";
 import { useAppDispatch } from "@/redux/hook";
+import { role } from "@/constants/role";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,11 +24,11 @@ const Navbar = () => {
   }
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Products", href: "/products" },
-    { name: "Contact", href: "/contact" },
+    { name: "Home", href: "/", role : "PUBLIC" },
+    { name: "About", href: "/about", role : "PUBLIC"  },
+    {name : "Dashboard", href: "/admin", role : role.admin},
+    {name : "Dashboard", href: "/user", role : role.user}
+   
   ];
 
   const { data } = useUserInfoQuery(undefined);
@@ -57,26 +58,28 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200",
-                    "text-foreground/80 hover:text-foreground",
-                    "hover:bg-accent hover:text-accent-foreground",
-                    "focus:outline-none focus:ring-2 focus:ring-offset-2",
-                    "dark:text-foreground/80 dark:hover:text-foreground"
-                  )}
-                  style={
-                    {
-                      "--tw-ring-color": "#B3EBF2",
-                    } as React.CSSProperties
-                  }
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) =>
+                (link.role === "PUBLIC" || (data?.data?.role === link.role)) && (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={cn(
+                      "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200",
+                      "text-foreground/80 hover:text-foreground",
+                      "hover:bg-accent hover:text-accent-foreground",
+                      "focus:outline-none focus:ring-2 focus:ring-offset-2",
+                      "dark:text-foreground/80 dark:hover:text-foreground"
+                    )}
+                    style={
+                      {
+                        "--tw-ring-color": "#B3EBF2",
+                      } as React.CSSProperties
+                    }
+                  >
+                    {link.name}
+                  </Link>
+                )
+              )}
             </div>
           </div>
 
@@ -182,12 +185,8 @@ const Navbar = () => {
                 <>
                  <Button variant="ghost" size="icon" className="hover:bg-accent relative">
                 <ShoppingCart className="h-5 w-5" />
-                <span
-                  className="absolute -top-1 -right-1 h-4 w-4 rounded-full text-xs flex items-center justify-center text-white font-medium"
-                  style={{ backgroundColor: "#B3EBF2" }}
-                >
-                  3
-                </span>
+               
+              
                 <span className="sr-only">Shopping cart</span>
               </Button>
                   <Button variant="ghost" size="icon" className="hover:bg-accent">
