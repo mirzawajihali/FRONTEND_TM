@@ -1,4 +1,5 @@
 import AddTour from "@/pages/Admin/AddTour";
+import AddTourType from "@/pages/Admin/AddTourType";
 
 import type { IsidebarItems } from "@/types";
 import { lazy } from "react";
@@ -27,6 +28,11 @@ export const adminSidebarItems : IsidebarItems[] = [
           title: "Add Tour",
           url: "add-tour", // Remove /admin prefix since it's already in the parent route
           component :  AddTour,
+        },
+        {
+          title: "Add Tour Type",
+          url: "add-tour-type", // Remove /admin prefix since it's already in the parent route
+          component :  AddTourType,
         },
         
       ],
