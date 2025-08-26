@@ -4,12 +4,14 @@ import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { ModeToggle } from "./ModeToggler";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { Link } from "react-router";
+import { useAppDispatch } from "@/redux/hook";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,6 +19,7 @@ const Navbar = () => {
 
   const handleLogout =()=>{
     logout(undefined);
+    dispatch(authApi.util.resetApiState());
   }
 
   const navLinks = [
@@ -28,7 +31,7 @@ const Navbar = () => {
   ];
 
   const { data } = useUserInfoQuery(undefined);
-  console.log(data);
+  console.log(data?.data?.email);
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
