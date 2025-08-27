@@ -1,3 +1,4 @@
+import AddDivision from "@/pages/Admin/AddDivision";
 import AddTour from "@/pages/Admin/AddTour";
 import AddTourType from "@/pages/Admin/AddTourType";
 
@@ -33,6 +34,12 @@ export const adminSidebarItems : IsidebarItems[] = [
           title: "Add Tour Type",
           url: "add-tour-type", // Remove /admin prefix since it's already in the parent route
           component :  AddTourType,
+        },
+        {
+          title: "Add Division",
+          url: "add-division", // Remove /admin prefix since it's already in the parent route
+          component :  AddDivision
+          ,
         },
         
       ],
