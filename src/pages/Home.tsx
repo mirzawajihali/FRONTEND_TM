@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const Home = () => {
     return (
         <div className="min-h-screen flex items-center justify-center">
@@ -14,7 +16,7 @@ const Home = () => {
                         className="px-8 py-3 rounded-lg text-white font-medium transition-colors duration-200 hover:opacity-90"
                         style={{ backgroundColor: '#B3EBF2' }}
                     >
-                        Explore Tours
+                       <Link to="/tours"> Explore Tours</Link>
                     </button>
                     <button className="px-8 py-3 rounded-lg border border-border text-foreground font-medium hover:bg-accent transition-colors duration-200">
                         Learn More

@@ -37,12 +37,12 @@ import type { FileMetadata } from "@/hooks/use-file-upload";
 import { cn } from "@/lib/utils";
 import { useGetDivisionsQuery } from "@/redux/features/division/division.api";
 import { useAddTourMutation, useGetTourTypesQuery } from "@/redux/features/tour/tour.api";
-
+import type { IErrorResponse } from "@/types";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, formatISO } from "date-fns";
 import { CalendarIcon, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -69,6 +69,10 @@ const formSchema = z.object({
 
 export default function AddTour() {
   const [images, setImages] = useState<(File | FileMetadata)[] | []>([]);
+
+  const handleImagesChange = useCallback<React.Dispatch<React.SetStateAction<(File | FileMetadata)[] | []>>>((newImages) => {
+    setImages(newImages);
+  }, []);
 
   const { data: divisionData, isLoading: divisionLoading } =
     useGetDivisionsQuery(undefined);
@@ -215,19 +219,9 @@ export default function AddTour() {
       }
     } catch (err: unknown) {
       console.error(err);
-      toast.error(
-        (typeof err === "object" &&
-          err !== null &&
-          "message" in err &&
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          typeof (err as any).message === "string"
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ? (err as any).message
-          : "Something went wrong"),
-        {
-          id: toastId,
-        }
-      );
+      toast.error((err as IErrorResponse).message || "Something went wrong", {
+        id: toastId,
+      });
     }
   };
 
@@ -513,7 +507,7 @@ export default function AddTour() {
                   )}
                 />
                 <div className="flex-1 mt-5">
-                  <MultipleImageUploader onChange={setImages} />
+                  <MultipleImageUploader onChange={handleImagesChange} />
                 </div>
               </div>
               <div className="border-t border-muted w-full "></div>

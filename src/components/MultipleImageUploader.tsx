@@ -38,7 +38,7 @@ export default function MultipleImageUploader({onChange} : {onChange :Dispatch<R
     else{
       onChange([])
     }
-  })
+  }, [files, onChange])
 
   return (
     <div className="flex flex-col gap-2">
