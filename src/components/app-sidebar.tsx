@@ -17,6 +17,8 @@ import { Link } from "react-router"
 
 import { getSIdebarItems } from "@/utils/getSidebarItems"
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
+import { User } from "lucide-react"
+import { Button } from "./ui/button"
 
 // This is sample data.
 
@@ -30,7 +32,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-       
+        <div className="flex items-center space-x-2">
+          <User className="h-6 w-6 text-muted-foreground" />
+          <span className="text-sm font-medium text-muted-foreground">
+            {userData?.data?.name || "Guest"}
+          </span>
+          <Button><Link to="/">Home</Link></Button>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}

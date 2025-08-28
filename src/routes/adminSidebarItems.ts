@@ -1,6 +1,7 @@
 import AddDivision from "@/pages/Admin/AddDivision";
 import AddTour from "@/pages/Admin/AddTour";
 import AddTourType from "@/pages/Admin/AddTourType";
+import UpdateUser from "@/pages/User/UpdateUser";
 
 import type { IsidebarItems } from "@/types";
 import { lazy } from "react";
@@ -18,6 +19,11 @@ export const adminSidebarItems : IsidebarItems[] = [
           url: "analytics", // Remove /admin prefix since it's already in the parent route
           component : Analytics,
         },
+         {
+                        title : "Update User Info",
+                        url : "update",
+                        component : UpdateUser
+                    }
         
       ],
     },
@@ -41,6 +47,7 @@ export const adminSidebarItems : IsidebarItems[] = [
           component :  AddDivision
           ,
         },
+                   
         
       ],
     },
