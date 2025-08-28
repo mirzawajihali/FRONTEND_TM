@@ -34,6 +34,8 @@ export default function AddTourType() {
   const { data } = useGetTourTypesQuery({page : currentPage});
   const [removeTourType] = useRemoveTourTypeMutation();
 
+  const totalPage = data?.meta?.totalPage;
+
   const handleRemoveTourType = async(tourId : string) => {
     try {
         const res = await removeTourType(tourId).unwrap;
@@ -84,16 +86,24 @@ export default function AddTourType() {
                  <Pagination>
                                 <PaginationContent>
                                   <PaginationItem>
-                                    <PaginationPrevious onClick={() => setCurrentPage((prev) =>prev - 1)} />
+                                    <PaginationPrevious className ={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"} 
+                                    onClick={() => setCurrentPage((prev) =>prev - 1)} />
                                   </PaginationItem>
-                                  <PaginationItem>
-                                    <PaginationLink href="#">1</PaginationLink>
-                                  </PaginationItem>
+                                  {
+                                    Array.from({ length: totalPage }, (_, i) => i + 1).map((page) => (
+                                      <PaginationItem key={page}>
+                                        <PaginationLink isActive={currentPage === page} onClick={() => setCurrentPage(page)}>
+                                          {page}
+                                        </PaginationLink>
+                                      </PaginationItem>
+                                    ))
+                                  }
                                   <PaginationItem>
                                     <PaginationEllipsis />
                                   </PaginationItem>
                                   <PaginationItem>
-                                    <PaginationNext onClick={() => setCurrentPage((prev) =>prev + 1)} />
+                                    <PaginationNext className ={currentPage === totalPage ? "pointer-events-none opacity-50" : "cursor-pointer"} 
+                                     onClick={() => setCurrentPage((prev) =>prev + 1)} />
                                   </PaginationItem>
                                 </PaginationContent>
                 </Pagination>
