@@ -40,7 +40,7 @@ export function AddDivisionModal() {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data ) => {
     const formData = new FormData();
 
     formData.append("data", JSON.stringify(data));
@@ -51,6 +51,7 @@ export function AddDivisionModal() {
 
     try {
       const res = await addDivision(formData).unwrap();
+      console.log(res)
       toast.success("Division Added");
       setOpen(false);
     } catch (err) {
@@ -80,7 +81,7 @@ export function AddDivisionModal() {
                 <FormItem>
                   <FormLabel>Division Type</FormLabel>
                   <FormControl>
-                    <Input placeholder="Tour Type Name" {...field} />
+                    <Input  {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

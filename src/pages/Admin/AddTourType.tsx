@@ -12,7 +12,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { AddTourTypeModal } from "@/modules/Admin/Tour/AddTourTypeModal";
-import { useGetTourTypesQuery, useRemoveTourTypeMutation } from "@/redux/features/tour/tour.api";
+import { useGetTourTypesQuery, useRemoveTourTypeMutation } from "@/redux/features/Tour/tour.api";
+
 import { Trash2 } from "lucide-react";
 
 
